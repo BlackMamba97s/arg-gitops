@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: arg
+  namespace: system:janus-idp
+  labels:
+    app: arg
+    app.kubernetes.io/component: backstage
+    backstage.io/kubernetes-id: system:janus-idp
+spec:
+  - host: argocd.liquid-reply.net
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: arg
+              port:
+                number: 80

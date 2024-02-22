@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: arg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arg
+  template:
+    metadata:
+      labels:
+        app: arg
+        app.kubernetes.io/component: backstage
+        backstage.io/kubernetes-id: system:janus-idp
+    spec:
+      containers:
+        - name: arg
+          image: quay.io/quay.io/argoproj/argocd:v2.9.5/arg:latest
+          ports:
+            - name: http-80
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
